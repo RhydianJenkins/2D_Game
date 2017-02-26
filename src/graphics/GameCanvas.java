@@ -28,11 +28,11 @@ public class GameCanvas extends Canvas {
 		this.addKeyListener(listener);
 		
 		// init player
-		this.player = new Player(listener, 0, "Rhydian", 50, 200, 300);
+		this.player = new Player(listener, 0, "Rhydian", 50);
 		
 		// init enemies
 		for (int i = 0; i < 1; i++) {
-			enemies.add(new Enemy(1, "rawr", 50, 100, 100));
+			enemies.add(new Enemy(1, "Monster", 50, 100, 100));
 		}
 		
 		// set some vars for the canvas
@@ -41,6 +41,13 @@ public class GameCanvas extends Canvas {
 	}
 	
 	public void tick() {
+		// DEBUG, keep player in canvas
+		if (player.getXPos() > width || player.getXPos() < 0 || player.getYPos() > height || player.getYPos() < 0) {
+			player.setXPos(width / 2);
+			player.setYPos(height / 2);
+			player.setDirection(0.0f, 0.0f);
+		}
+		
 		// tick player
 		this.player.tick();
 	
@@ -68,5 +75,19 @@ public class GameCanvas extends Canvas {
 		for (int i = 0; i < this.enemies.size(); i++) {
 			enemies.get(i).render(g);
 		}
+	}
+	
+	// TODO
+	private float getRandXPosInsideCanvas() {
+		return (float) this.width / 2;
+	}
+	private float getRandYPosInsideCanvas() {
+		return (float) this.height / 2;
+	}
+	private float getRandXPosOutsideCanvas() {
+		return (float) this.width / 2;
+	}
+	private float getRandYPosOutsideCanvas() {
+		return (float) this.height / 2;
 	}
 }

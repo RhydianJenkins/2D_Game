@@ -7,7 +7,8 @@ public class Enemy implements entityInterface {
 	
 	private String name = "";
 	private int id = 0;
-	private int size, xPos, yPos, health = 0;
+	private float xPos, yPos, dx, dy = 0f;
+	private int size, health = 0;
 	
 	public Enemy(int id, String name, int size, int xPos, int yPos) {
 		this.id = id;
@@ -21,12 +22,23 @@ public class Enemy implements entityInterface {
 	public void tick() {}
 
 	public void render(Graphics g) {
+		int x = (int) this.xPos;
+		int y = (int) this.yPos;
 		g.setColor(new Color(200, 0, 0));
-		g.fillOval(this.xPos, this.yPos, this.size, this.size);
+		g.fillOval(x, y, this.size, this.size);
 		
 		// render name
-		g.drawString(this.name, this.xPos, this.yPos);
+		g.drawString(this.name, x, y);
 	}
+	
+	public void updateDirections() {
+		
+	}
+	
+	public void move() {
+		this.xPos += this.dx;
+		this.yPos += this.dy;
+	}	
 
 	// GETTERS AND SETTERS
 	public int getId() {
@@ -35,10 +47,10 @@ public class Enemy implements entityInterface {
 	public String getName() {
 		return this.name;
 	}
-	public int getXPos() {
+	public float getXPos() {
 		return this.xPos;
 	}
-	public int getYPos() {
+	public float getYPos() {
 		return this.yPos;
 	}
 	public int getSize() {
