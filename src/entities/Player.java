@@ -13,7 +13,7 @@ public class Player implements entityInterface{
 	private CustomListener listener;
 	private float xPos, yPos, dx, dy = 0f;
 	private float acceleration = 0.5f;
-	private float friction = 0.2f;
+	private float friction = 0.1f;
 	private float maxSpeed = 5.0f;
 	
 	public Player(CustomListener listener, int id, String name, int size) {
@@ -67,10 +67,18 @@ public class Player implements entityInterface{
 			}
 		}
 		// apply friction
-		float fx = Math.signum(dx) * (this.friction);
-		float fy = Math.signum(dy) * (this.friction);
-		this.dx -= fx;
-		this.dy -= fy;
+		float fx = Math.signum(dx) * this.friction;
+		float fy = Math.signum(dy) * this.friction;
+		if (fx > Math.abs(dx)) {
+			this.dx = 0.0f;
+		} else {
+			this.dx -= fx;
+		}
+		if (fy > Math.abs(dy)) {
+			this.dy = 0.0f;
+		} else {
+			this.dy -= fy;			
+		}
 		// set the new pos
 		this.xPos += this.dx;
 		this.yPos += this.dy;

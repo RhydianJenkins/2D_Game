@@ -32,7 +32,7 @@ public class GameCanvas extends Canvas {
 		
 		// init enemies
 		for (int i = 0; i < 1; i++) {
-			enemies.add(new Enemy(1, "Monster", 50, 100, 100));
+			enemies.add(new Enemy(player, 1, "Monster", 50, 100, 100));
 		}
 		
 		// set some vars for the canvas
