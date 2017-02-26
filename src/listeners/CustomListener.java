@@ -22,7 +22,9 @@ public class CustomListener implements MouseListener, MouseMotionListener, KeyLi
 		this.gameCanvas = gameCanvas;
 	}
 	
-	public void mousePressed(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {
+		gameCanvas.addPlayerBullet(getMouseX(), getMouseY());
+	}
 	
 	public void keyTyped(KeyEvent e) {
 		char keyChar = e.getKeyChar();

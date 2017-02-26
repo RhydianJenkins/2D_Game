@@ -34,10 +34,10 @@ public class Player implements entityInterface{
 		int x = (int) this.xPos;
 		int y = (int) this.yPos;
 		g.setColor(new Color(0, 200, 0));
-		g.fillOval(x, y, 50, 50);
+		g.fillOval(x-(this.size/2), y-(this.size/2), this.size, this.size);
 		
 		// render name
-		g.drawString(this.name, x, y);
+		//g.drawString(this.name, x, y);
 	}
 
 	public void move() {

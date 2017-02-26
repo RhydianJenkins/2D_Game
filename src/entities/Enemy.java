@@ -37,10 +37,10 @@ public class Enemy implements entityInterface {
 		int x = (int) this.xPos;
 		int y = (int) this.yPos;
 		g.setColor(new Color(200, 0, 0));
-		g.fillOval(x, y, this.size, this.size);
+		g.fillOval(x-(this.size/2), y-(this.size/2), this.size, this.size);
 		
 		// render name
-		g.drawString(this.name, x, y);
+		//g.drawString(this.name, x, y);
 	}
 	
 	private void moveTowardsPosition(float tx, float ty) {
