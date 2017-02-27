@@ -2,6 +2,10 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Enemy implements entityInterface {
 	
@@ -14,6 +18,7 @@ public class Enemy implements entityInterface {
 	private float acceleration = 0.5f;
 	private float friction = 0.1f;
 	private float maxSpeed = 3.0f;
+	private BufferedImage avatar;
 	
 	public Enemy(Player player, int id, String name, int size, int xPos, int yPos) {
 		this.player = player;
@@ -23,6 +28,11 @@ public class Enemy implements entityInterface {
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.health = 100;
+		try {
+			this.avatar = ImageIO.read(getClass().getResource("/img/zombie.png"));
+		} catch (IOException e) {
+			System.err.println(e);
+		}
 	}
 	
 	public void tick() {
@@ -37,8 +47,8 @@ public class Enemy implements entityInterface {
 		int x = (int) this.xPos;
 		int y = (int) this.yPos;
 		g.setColor(new Color(200, 0, 0));
-		g.fillOval(x-(this.size/2), y-(this.size/2), this.size, this.size);
-		
+		//g.fillOval(x-(this.size/2), y-(this.size/2), this.size, this.size);
+		g.drawImage(this.avatar, x-(this.size/2), y-(this.size/2), this.size, this.size, null);
 		// render name
 		//g.drawString(this.name, x, y);
 	}

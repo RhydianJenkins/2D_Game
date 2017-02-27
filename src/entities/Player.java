@@ -2,6 +2,11 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import listeners.CustomListener;
 
@@ -15,6 +20,7 @@ public class Player implements entityInterface{
 	private float acceleration = 0.5f;
 	private float friction = 0.1f;
 	private float maxSpeed = 5.0f;
+	private BufferedImage avatar;
 	
 	public Player(CustomListener listener, int id, String name, int size) {
 		this.listener = listener;
@@ -24,6 +30,11 @@ public class Player implements entityInterface{
 		this.xPos = 200.0f;
 		this.yPos = 200.0f;
 		this.health = 100;
+		try {
+			this.avatar = ImageIO.read(getClass().getResource("/img/zombie.png"));
+		} catch (IOException e) {
+			System.err.println(e);
+		}
 	}
 	
 	public void tick() {
@@ -34,8 +45,8 @@ public class Player implements entityInterface{
 		int x = (int) this.xPos;
 		int y = (int) this.yPos;
 		g.setColor(new Color(0, 200, 0));
-		g.fillOval(x-(this.size/2), y-(this.size/2), this.size, this.size);
-		
+		//g.fillOval(x-(this.size/2), y-(this.size/2), this.size, this.size);
+		g.drawImage(this.avatar, x-(this.size/2), y-(this.size/2), this.size, this.size, null);
 		// render name
 		//g.drawString(this.name, x, y);
 	}

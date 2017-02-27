@@ -10,7 +10,6 @@ import graphics.GUIManager;
 public class main implements Runnable {
 	
 	public static final int DESIREDTICKS = 60;
-	public static final int BOTSIZE = 20;
 	
 	public GUIManager gui = new GUIManager();
 	public boolean running = false;
@@ -21,7 +20,6 @@ public class main implements Runnable {
 	public void render() { gui.render(); }
 	
 	public synchronized void start() {
-		//System.out.println("START");
 		running = true;
 		new Thread(this).start();
 	}

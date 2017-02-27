@@ -30,7 +30,7 @@ public class GameCanvas extends Canvas {
 		this.addKeyListener(listener);
 		
 		// init player
-		this.player = new Player(listener, 0, "Rhydian", 5);
+		this.player = new Player(listener, 0, "Rhydian", 50);
 		
 		// init bullets
 		this.bullets = new ArrayList<Bullet>();
@@ -104,7 +104,7 @@ public class GameCanvas extends Canvas {
 			direction += 360;
 		}
 		
-		bullets.add(new Bullet(direction, 2.0f, 1.0f, px, py));
+		bullets.add(new Bullet(direction, 15.0f, 1.0f, px, py));
 	}
 	
 	// TODO
