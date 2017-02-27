@@ -1,7 +1,8 @@
 package entities;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -46,11 +47,13 @@ public class Enemy implements entityInterface {
 	public void render(Graphics g) {
 		int x = (int) this.xPos;
 		int y = (int) this.yPos;
-		g.setColor(new Color(200, 0, 0));
-		//g.fillOval(x-(this.size/2), y-(this.size/2), this.size, this.size);
-		g.drawImage(this.avatar, x-(this.size/2), y-(this.size/2), this.size, this.size, null);
-		// render name
-		//g.drawString(this.name, x, y);
+		Graphics2D g2d = (Graphics2D) g;
+		AffineTransform transform = g2d.getTransform();
+		// double angleToPlayer = Math.atan2(y - this.player.getYPos(), x - this.player.getXPos()) - Math.PI / 2;
+		double angleToPlayer = Math.atan2(y - this.player.getYPos(), x - this.player.getXPos()) - Math.PI / 2;
+		g2d.rotate(angleToPlayer, x, y);
+		g2d.drawImage(this.avatar, x-(this.size/2), y-(this.size/2), this.size, this.size, null);
+		g2d.setTransform(transform);
 	}
 	
 	private void moveTowardsPosition(float tx, float ty) {

@@ -45,8 +45,8 @@ public class Player implements entityInterface{
 		int x = (int) this.xPos;
 		int y = (int) this.yPos;
 		g.setColor(new Color(0, 200, 0));
-		//g.fillOval(x-(this.size/2), y-(this.size/2), this.size, this.size);
-		g.drawImage(this.avatar, x-(this.size/2), y-(this.size/2), this.size, this.size, null);
+		g.fillOval(x-(this.size/2), y-(this.size/2), this.size, this.size);
+		//g.drawImage(this.avatar, x-(this.size/2), y-(this.size/2), this.size, this.size, null);
 		// render name
 		//g.drawString(this.name, x, y);
 	}
