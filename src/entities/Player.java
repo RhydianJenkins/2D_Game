@@ -46,10 +46,6 @@ public class Player implements entityInterface {
 		int y = (int) this.yPos;
 		g.setColor(new Color(0, 200, 0));
 		g.fillOval(x - (this.size / 2), y - (this.size / 2), this.size, this.size);
-		// g.drawImage(this.avatar, x-(this.size/2), y-(this.size/2), this.size,
-		// this.size, null);
-		// render name
-		// g.drawString(this.name, x, y);
 	}
 
 	public void move() {
@@ -78,6 +74,7 @@ public class Player implements entityInterface {
 				this.dx = this.maxSpeed;
 			}
 		}
+		
 		// apply friction
 		float fx = Math.signum(dx) * this.friction;
 		float fy = Math.signum(dy) * this.friction;
@@ -91,6 +88,7 @@ public class Player implements entityInterface {
 		} else {
 			this.dy -= fy;
 		}
+		
 		// set the new pos
 		this.xPos += this.dx;
 		this.yPos += this.dy;

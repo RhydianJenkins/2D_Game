@@ -2,15 +2,16 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 
 public class Bullet {
 	float direction; // 0.0 - 359.0, wraps
 	float speed; // pixels/tick
-	float damage;
+	int damage;
 	float xPos;
 	float yPos;
 
-	public Bullet(float direction, float speed, float damage, float xPos, float yPos) {
+	public Bullet(float direction, float speed, int damage, float xPos, float yPos) {
 		this.direction = direction;
 		this.speed = speed;
 		this.damage = damage;
@@ -30,5 +31,18 @@ public class Bullet {
 	private void move() {
 		this.xPos += Math.cos(Math.toRadians(this.direction)) * this.speed;
 		this.yPos += Math.sin(Math.toRadians(this.direction)) * this.speed;
+	}
+
+	/**
+	 * Gets the position of the bullet as a Point.
+	 * 
+	 * @return The position of the bullet
+	 */
+	public Point getPos() {
+		return new Point((int) (xPos), (int) (yPos));
+	}
+	
+	public int getDmg() {
+		return this.damage;
 	}
 }

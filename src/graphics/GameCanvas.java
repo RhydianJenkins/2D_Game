@@ -59,6 +59,12 @@ public class GameCanvas extends Canvas {
 		// tick bullets
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).tick();
+			if (this.bulletOutOfBoundsOrRange(bullets.get(i))) {
+				bullets.remove(bullets.get(i));
+			} else {
+				this.checkBulletCollision(bullets.get(i));	
+			}
+			
 		}
 
 		// tick enemies
@@ -104,7 +110,41 @@ public class GameCanvas extends Canvas {
 			direction += 360;
 		}
 
-		bullets.add(new Bullet(direction, 15.0f, 1.0f, px, py));
+		bullets.add(new Bullet(direction, 15.0f, 1, px, py));
+	}
+
+	/**
+	 * Checks if the bullet is out of bounds of the arena or has travelled for
+	 * longer than it's range.
+	 * 
+	 * @return True if is out of bounds or range.
+	 */
+	private boolean bulletOutOfBoundsOrRange(Bullet b) {
+		if (b.getPos().getX() < 0 || b.getPos().getX() > this.width) {
+			return true;
+		}
+		if (b.getPos().getY() < 0 || b.getPos().getY() > this.height) {
+			return true;
+		}
+		// TODO, check range of bullet
+		return false;
+	}
+
+	private void checkBulletCollision(Bullet b) {
+		double bulX = b.getPos().getX();
+		double bulY = b.getPos().getY();
+		double enX;
+		double enY;
+		double dist;
+		for (Enemy e : enemies) {
+			enX = e.getXPos();
+			enY = e.getYPos();
+			dist = Math.sqrt((bulY - enY) * (bulY - enY) + (bulX - enX) * (bulX - enX));
+			if (dist < 20) {
+				e.removeHealth(b.getDmg());
+				bullets.remove(b);
+			}
+		}
 	}
 
 	// TODO

@@ -20,6 +20,7 @@ public class Enemy implements entityInterface {
 	private float friction = 0.1f;
 	private float maxSpeed = 3.0f;
 	private BufferedImage avatar;
+	private boolean isDead;
 
 	public Enemy(Player player, int id, String name, int size, int xPos, int yPos) {
 		this.player = player;
@@ -29,6 +30,7 @@ public class Enemy implements entityInterface {
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.health = 100;
+		this.isDead = false;
 		try {
 			this.avatar = ImageIO.read(getClass().getResource("/img/zombie.png"));
 		} catch (IOException e) {
@@ -41,6 +43,9 @@ public class Enemy implements entityInterface {
 		if (getDistanceTo(player.getXPos(), player.getYPos()) < this.size) {
 			this.xPos = 0;
 			this.yPos = 0;
+		}
+		if (this.health < 0) {
+			die();
 		}
 	}
 
@@ -55,6 +60,10 @@ public class Enemy implements entityInterface {
 		g2d.rotate(angleToPlayer, x, y);
 		g2d.drawImage(this.avatar, x - (this.size / 2), y - (this.size / 2), this.size, this.size, null);
 		g2d.setTransform(transform);
+	}
+	
+	private void die() {
+		this.isDead = true;
 	}
 
 	private void moveTowardsPosition(float tx, float ty) {
@@ -110,5 +119,9 @@ public class Enemy implements entityInterface {
 
 	public int getHealth() {
 		return this.health;
+	}
+
+	public void removeHealth(int dmg) {
+		this.health -= dmg;
 	}
 }
