@@ -8,24 +8,32 @@ package engine;
 import graphics.GUIManager;
 
 public class main implements Runnable {
-	
+
 	public static final int DESIREDTICKS = 60;
-	
+
 	public GUIManager gui = new GUIManager();
 	public boolean running = false;
-	
-	public main() {}
 
-	public void tick() { gui.tick(); }
-	public void render() { gui.render(); }
-	
+	public main() {
+	}
+
+	public void tick() {
+		gui.tick();
+	}
+
+	public void render() {
+		gui.render();
+	}
+
 	public synchronized void start() {
 		running = true;
 		new Thread(this).start();
 	}
 
-	public synchronized void stop() { running = false; }
-	
+	public synchronized void stop() {
+		running = false;
+	}
+
 	public void run() {
 		long lastTimeNs = System.nanoTime();
 		long lastTimeMs = System.currentTimeMillis();
@@ -33,12 +41,13 @@ public class main implements Runnable {
 		double tickIfMoreThan1 = 0;
 		double nsPerTick = 1000000000D / DESIREDTICKS;
 		int tickNo = 0, frameNo = 0;
-		
+		boolean shouldRender = true;
+
 		while (running) {
 			now = System.nanoTime();
-			tickIfMoreThan1 += (now - lastTimeNs) / nsPerTick;;
+			tickIfMoreThan1 += (now - lastTimeNs) / nsPerTick;
+			;
 			lastTimeNs = now;
-			boolean shouldRender = true;
 
 			while (tickIfMoreThan1 >= 1) {
 				tickNo++;
@@ -46,18 +55,19 @@ public class main implements Runnable {
 				tickIfMoreThan1 -= 1;
 				shouldRender = true;
 			}
-			
+
 			try {
 				Thread.sleep(2);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 			if (shouldRender) {
 				render();
 				frameNo++;
+				shouldRender = false;
 			}
-			
+
 			// once per second update the title and reset counters
 			if (System.currentTimeMillis() - lastTimeMs >= 1000) {
 				gui.setTitle(tickNo + " ticks, " + frameNo + " FPS");
@@ -66,10 +76,10 @@ public class main implements Runnable {
 				tickNo = 0;
 			}
 		}
-		
+
 		System.exit(1);
 	}
-	
+
 	public static void main(String[] args) {
 		new main().start();
 	}
